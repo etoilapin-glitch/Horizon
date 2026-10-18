@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans KR", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #0c0a09;
+  font-family: "Noto Sans KR", sans-serif;
+  word-break: keep-all;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+button {
+  font: inherit;
+}
+
+.nav-link {
+  position: relative;
+  padding: 2.4rem 0;
+}
+
+.nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: 1.65rem;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.menu-button {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.menu-button span {
+  display: block;
+  width: 1.8rem;
+  height: 1px;
+  background: currentColor;
+  transition: width 200ms ease;
+}
+
+.menu-button span:nth-child(2) {
+  width: 1.25rem;
+}
+
+.menu-button:hover span:nth-child(2) {
+  width: 1.8rem;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.outline-button,
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.outline-button {
+  min-width: 12rem;
+  justify-content: space-between;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  padding: 0.85rem 1.25rem;
+  transition:
+    color 250ms ease,
+    background 250ms ease;
+}
+
+.outline-button:hover {
+  color: #0c0a09;
+  background: white;
+}
+
+.outline-button svg,
+.text-link svg {
+  width: 1.75rem;
+  transition: transform 250ms ease;
+}
+
+.outline-button:hover svg,
+.text-link:hover svg {
+  transform: translateX(0.35rem);
+}
+
+.text-link {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.6rem;
+}
+
+.round-arrow {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.5);
+  border-radius: 9999px;
+  transition:
+    color 200ms ease,
+    background 200ms ease;
+}
+
+.round-arrow:hover {
+  color: #0c0a09;
+  background: white;
+}
+
+.round-arrow svg {
+  width: 1.25rem;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  gap: 1.25rem;
+  animation: gallery-scroll 42s linear infinite;
+}
+
+.gallery-track:hover {
+  animation-play-state: paused;
+}
+
+.gallery-card {
+  width: min(25rem, 72vw);
+  flex: 0 0 auto;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 30rem;
+  object-fit: cover;
+  filter: grayscale(30%);
+  transition:
+    filter 400ms ease,
+    transform 400ms ease;
+}
+
+.gallery-card:hover img {
+  filter: grayscale(0);
+  transform: translateY(-0.5rem);
+}
+
+.gallery-card figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  color: #78716c;
+  font-size: 0.7rem;
+}
+
+.marquee-text {
+  width: max-content;
+  color: transparent;
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px #d6d3d1;
+}
+
+.program-card {
+  min-height: 34rem;
+  padding: 2rem;
+  background: #bef264;
+  transition: background 300ms ease;
+}
+
+.program-card:hover {
+  background: #d9f99d;
+}
+
+.program-image {
+  height: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  transition:
+    height 400ms ease,
+    margin 400ms ease;
+}
+
+.program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.program-card:hover .program-image {
+  height: 13rem;
+  margin-bottom: 2rem;
+}
+
+@keyframes gallery-scroll {
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
+
+@media (max-width: 1023px) {
+  .program-image {
+    height: 15rem;
+    margin-bottom: 2rem;
+  }
+
+  .program-card {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .gallery-track {
+    animation-play-state: paused;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
