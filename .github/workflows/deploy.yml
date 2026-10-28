@@ -1,0 +1,43 @@
+name: Deploy Vite App to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # 사용 중인 Node 버전에 맞게 수정 가능
+          
+      - name: Install dependencies
+        run: npm install # yarn을 사용한다면 yarn install로 변경
+        
+      - name: Build
+        run: npm run build # yarn을 사용한다면 yarn build로 변경
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Vite가 빌드된 결과물을 저장하는 기본 폴더명입니다.
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
