@@ -19,16 +19,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # 사용 중인 Node 버전에 맞게 수정 가능
+          node-version: 18
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm install # yarn을 사용한다면 yarn install로 변경
+        run: pnpm install
         
       - name: Build
-        run: npm run build # yarn을 사용한다면 yarn build로 변경
+        run: pnpm run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -36,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Vite가 빌드된 결과물을 저장하는 기본 폴더명입니다.
+          path: './dist'
           
       - name: Deploy to GitHub Pages
         id: deployment
